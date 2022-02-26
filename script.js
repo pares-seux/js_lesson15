@@ -33,6 +33,7 @@ DomElement.prototype.createNewElement = function (value, position) {
   return newElement;
 };
 
+body.style.overflow = "hidden";
 const div = new DomElement("#square", 100, 100, "green");
 const square = div.createNewElement("", "absolute");
 
@@ -55,18 +56,17 @@ body.addEventListener("keydown", function (event) {
   if (event.code === "ArrowLeft") y -= 10; //square.style.left = `${y - 10}px`;
   if (event.code === "ArrowUp") x -= 10; //square.style.top = `${x - 10}px`;
   if (event.code === "ArrowDown") x += 10; //square.style.top = `${x + 10}px`;
-  console.log(window.innerWidth);
   y =
-    y > window.innerWidth - parseInt(square.style.width)
-      ? 0
-      : y < parseInt(square.style.width) * -1
-      ? window.innerWidth - parseInt(square.style.width)
+    y >= window.innerWidth
+      ? 0 - parseInt(square.style.width) + 10
+      : y <= parseInt(square.style.width) * -1
+      ? window.innerWidth - 10
       : y;
   x =
-    x > window.innerHeight - parseInt(square.style.height)
-      ? 0
-      : x < parseInt(square.style.height) * -1
-      ? window.innerHeight - parseInt(square.style.height)
+    x >= window.innerHeight
+      ? 0 - parseInt(square.style.height) + 10
+      : x <= parseInt(square.style.height) * -1
+      ? window.innerHeight - 10
       : x;
   square.style.left = `${y}px`;
   square.style.top = `${x}px`;
